@@ -9,12 +9,10 @@ core:
     tag: 8
     pullPolicy: IfNotPresent
   vaultAddress: http://vault:8200
-  etc: |-
-    #content of cm-etc
+  etc:
+    shieldd_conf: |-
+      #content of shieldd.conf file
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 service:
   type: ClusterIP
