@@ -3,11 +3,14 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
-image:
-  repository: nginx
-  tag: stable
-  pullPolicy: IfNotPresent
+core:
+  image:
+    repository: shieldproject/shield
+    tag: 8
+    pullPolicy: IfNotPresent
+  vaultAddress: http://vault:8200
+  etc: |-
+    #content of cm-etc
 
 imagePullSecrets: []
 nameOverride: ""
@@ -16,6 +19,26 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 80
+
+persistence:
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  labels: {}
+  #   name: value
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim:
+
+  ## shield data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
 
 ingress:
   enabled: false

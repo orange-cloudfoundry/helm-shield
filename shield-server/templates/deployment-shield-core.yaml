@@ -20,24 +20,38 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+        - name: shield-data
+          persistentVolumeClaim:
+            claimName: pvc-shield-core
+        - name: shield-etc
+          configMap:
+            name: cm-shield-etc
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.core.image.repository }}:{{ .Values.core.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 9009
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      env:
+        VAULT_ADDR: {{.Value.core.vaultAddress}}
+      volumeMounts:
+      - mountPath: "/var/shield"
+        name: shield-data
+      - mountPath: "/etc/shield"
+        name: shield-etc
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
