@@ -47,7 +47,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
           - name: VAULT_ADDR
-            value: {{.Value.core.vaultAddress}}
+            value: {{.Values.core.vaultAddress}}
           volumeMounts:
           - mountPath: "/var/shield"
             name: shield-data
