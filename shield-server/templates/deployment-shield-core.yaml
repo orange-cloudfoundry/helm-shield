@@ -15,6 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "shield-server.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -23,7 +24,7 @@ spec:
       volumes:
         - name: shield-data
           persistentVolumeClaim:
-            claimName: pvc-shield-core
+            claimName: pvc-{{ include "shield-server.fullname" . }}
         - name: shield-etc
           configMap:
             name: cm-shield-etc
@@ -31,6 +32,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.core.image.repository }}:{{ .Values.core.image.tag }}"
           imagePullPolicy: {{ .Values.core.image.pullPolicy }}
+          command: ['/shield/init/core']
+
           ports:
             - name: http
               containerPort: 9009
@@ -51,8 +54,10 @@ spec:
           volumeMounts:
           - mountPath: "/var/shield"
             name: shield-data
-          - mountPath: "/etc/shield"
+
+          - mountPath: "/etc/shield/shieldd.conf2"
             name: shield-etc
+            subPath: shieldd.conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: cm-shield-etc
 data:
-  shieldd.conf: {.Values.core.shieldd_conf}
+  shieldd.conf: |
+    {{.Values.core.etc.shieldd_conf}}
