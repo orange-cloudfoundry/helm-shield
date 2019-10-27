@@ -26,8 +26,7 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-{{ include "shield-server.fullname" . }}
         - name: shield-etc
-          configMap:
-            name: cm-shield-etc
+          emptyDir: {}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.core.image.repository }}:{{ .Values.core.image.tag }}"
@@ -36,16 +35,16 @@ spec:
 
           ports:
             - name: http
-              containerPort: 9009
+              containerPort: 80
               protocol: TCP
-#          livenessProbe:
-#            httpGet:
-#              path: /
-#              port: http
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -54,10 +53,8 @@ spec:
           volumeMounts:
           - mountPath: "/var/shield"
             name: shield-data
-
-          - mountPath: "/etc/shield/shieldd.conf2"
+          - mountPath: "/etc/shield"
             name: shield-etc
-            subPath: shieldd.conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

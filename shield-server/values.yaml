@@ -9,41 +9,6 @@ core:
     tag: 8
     pullPolicy: IfNotPresent
   vaultAddress: http://shield-vault:8200
-  etc:
-    shieldd_conf: |
-      --
-      debug:    no
-      data-dir: /var/shield
-      web-root: /shield/ui
-
-      scheduler:
-        fast-loop: 1
-        slow-loop: 300
-        timeout:   12
-        threads:   5
-
-      vault:
-        address: http://shield-vault:8200
-
-      api:
-        bind:  "0.0.0.0:80"
-        env:   "DOCKER"
-        color: "yellow"
-
-        failsafe:
-          username: admin
-          password: password
-
-        session:
-          timeout: 720
-
-      limit:
-        retention:
-          min: 1
-          max: 390
-
-      fabrics:
-        - name: legacy
 
 vault:
   vault:
