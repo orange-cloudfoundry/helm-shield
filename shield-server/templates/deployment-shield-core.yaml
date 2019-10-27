@@ -50,6 +50,11 @@ spec:
           env:
           - name: VAULT_ADDR
             value: {{.Values.core.vaultAddress}}
+          - name: SHIELD_FAILSAFE_PASSWORD
+            value: {{.Values.core.failsafe.password}}
+          - name: SHIELD_FAILSAFE_USERNAME
+            value: {{.Values.core.failsafe.username}}
+
           volumeMounts:
           - mountPath: "/var/shield"
             name: shield-data

@@ -9,6 +9,9 @@ core:
     tag: 8
     pullPolicy: IfNotPresent
   vaultAddress: http://shield-vault:8200
+  failsafe:
+    username: "admin"
+    password: "adminp"
 
 vault:
   vault:
