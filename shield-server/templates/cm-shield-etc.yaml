@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-shield-etc
-data:
-  shieldd.conf: |
-    {{.Values.core.etc.shieldd_conf}}

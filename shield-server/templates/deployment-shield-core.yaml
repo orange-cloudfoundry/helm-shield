@@ -27,11 +27,17 @@ spec:
             claimName: pvc-{{ include "shield-server.fullname" . }}
         - name: shield-etc
           emptyDir: {}
+        - name: vault
+          emptyDir: {}
+        - name: shield-init-core
+          configMap:
+            name: cm-init-shield-core
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.core.image.repository }}:{{ .Values.core.image.tag }}"
           imagePullPolicy: {{ .Values.core.image.pullPolicy }}
-          command: ['/shield/init/core']
+          command: ['/bin/bash']
+          args: ["/shield/init/core2"]
 
           ports:
             - name: http
@@ -48,8 +54,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+          - name: VAULT_TOKEN
+            value: {{.Values.vault.vault.token}}
           - name: VAULT_ADDR
-            value: {{.Values.core.vaultAddress}}
+            value: {{.Values.vault.vault.address}}
           - name: SHIELD_FAILSAFE_PASSWORD
             value: {{.Values.core.failsafe.password}}
           - name: SHIELD_FAILSAFE_USERNAME
@@ -60,6 +68,9 @@ spec:
             name: shield-data
           - mountPath: "/etc/shield"
             name: shield-etc
+          - mountPath: "/shield/init/core2"
+            name: shield-init-core
+            subPath: core2
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

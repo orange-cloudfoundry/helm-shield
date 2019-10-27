@@ -8,14 +8,15 @@ core:
     repository: shieldproject/shield
     tag: 8
     pullPolicy: IfNotPresent
-  vaultAddress: http://shield-vault:8200
+
+
   failsafe:
     username: "admin"
     password: "adminp"
 
 vault:
   vault:
-    address: "http://vault:8200"
+    address: "http://shield-vault:8200"
     token: "mytoken"
 
 
