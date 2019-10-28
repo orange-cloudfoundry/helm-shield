@@ -15,6 +15,7 @@ core:
     password: "adminp"
 
 vault:
+  install: true
   vault:
     address: "http://shield-vault:8200"
     token: "mytoken"
