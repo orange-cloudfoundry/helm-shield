@@ -8,10 +8,8 @@ A standalone system that can perform backup and restore functions for a wide var
 ## TL;DR;
 
 ```console
-git clone https://github.com/orange-cloudfoundry/helm-shield.git
-cd core
-helm dependency build
-$  helm install shield-server-0.1.0.tgz  -n shield
+helm repo add  orange-cloudfoundry-shield  https://orange-cloudfoundry.github.io/helm-shield/
+helm install orange-cloudfoundry-shield/shield-server  -n shield
 ```
 
 ## Introduction
