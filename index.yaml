@@ -3,11 +3,11 @@ entries:
   shield-server:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-11-06T15:58:03.384254324Z"
+    created: "2019-11-06T16:12:08.503967902Z"
     description: A Helm chart for Kubernetes
     digest: 5595839a84745c4de1e7b100d21abbe4c4b300a9dfec3b631bd3dde137d24590
     name: shield-server
     urls:
-    - https://github.com/orange-cloudfoundry/helm-shield/shield-server-0.1.0.tgz
+    - https://orange-cloudfoundry.github.io/helm-shield/shield-server-0.1.0.tgz
     version: 0.1.0
-generated: "2019-11-06T15:58:03.383060963Z"
+generated: "2019-11-06T16:12:08.503126076Z"
