@@ -3,11 +3,16 @@ entries:
   shield-server:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-11-06T16:12:08.503967902Z"
+    created: "2019-11-06T16:42:52.547639995Z"
     description: A Helm chart for Kubernetes
-    digest: 5595839a84745c4de1e7b100d21abbe4c4b300a9dfec3b631bd3dde137d24590
+    digest: e679086a8745286d4adfd7db54a34dedc348ec9a8aca498344335e3aa0f17a3a
+    maintainers:
+    - email: olivier.beyler@orange.com
+      name: obeyler
     name: shield-server
+    sources:
+    - https://github.com/hashicorp/vault
     urls:
     - https://orange-cloudfoundry.github.io/helm-shield/shield-server-0.1.0.tgz
     version: 0.1.0
-generated: "2019-11-06T16:12:08.503126076Z"
+generated: "2019-11-06T16:42:52.545671737Z"
