@@ -6,7 +6,7 @@ replicaCount: 1
 core:
   image:
     repository: shieldproject/shield
-    tag: 8
+    tag: 8.5
     pullPolicy: IfNotPresent
 
 
@@ -19,6 +19,14 @@ vault:
   vault:
     address: "http://shield-vault:8200"
     token: "mytoken"
+    extraVolumes:
+      - name: vault-tls
+        secret:
+          secretName: vault-tls
+    extraVolumeMounts:
+      - name: vault-tls
+        mountPath: /vault/tls
+        readOnly: true
 
 
 service:
